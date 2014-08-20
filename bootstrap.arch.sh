@@ -1,5 +1,5 @@
 export http_proxy=
-# git clone https://github.com/L3V3L9/dotfiles.git
+# git clone https://github.com/rlofc/dotfiles.git
 # core
 sudo http_proxy= pacman -S bc tmux xorg-server xorg-xinit xorg-server-utils dwm xterm zsh rxvt-unicode dmenu 
 # apps

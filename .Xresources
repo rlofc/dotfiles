@@ -1,41 +1,41 @@
-! xFT
-xFT.DPI: 96
-xFT.ANTIALIAS: TRUE
-xFT.RGBA: RGB
-xFT.HINTING: TRUE
-xFT.HINTSTYLE: AUTOHINT
-xFT.LCDFILTER: LCDDEFAULT
-! urXVT
-urXVT.SCROLLbAR: FALSE
-urXVT.LOGINsHELL: TRUE
-urXVT.FONT: XFT:mONACO FOR pOWERLINE:SIZE=11
-urXVT.LETTERsPACE: -1
-urXVT.TERMnAME: RXVT-256COLOR
-urXVT.UNDERLINEurlS: TRUE
-urXVT.URLlAUNCHER: CHROMIUM
-urXVT.PERL-EXT-COMMON:  DEFAULT,MATCHER,FONT-SIZE
-urXVT.MATCHER.BUTTON:   1 
-!urXVT.PERL-LIB: /HOME/USERNAME/.URXVT/
-urXVT.PERL-EXT: SELECTION,MARK-YANK-URLS,FONT-SIZE
-urXVT.KEYSYM.c-EQUAL: PERL:FONT:INCREASE
-urXVT.KEYSYM.c-MINUS: PERL:FONT:DECREASE
-urXVT.PERL-EXT-COMMON:      DEFAULT,CLIPBOARD,URL-SELECT,KEYBOARD-SELECT
-urXVT.URL-SELECT.LAUNCHER:  CHROMIUM
-urXVT.URL-SELECT.UNDERLINE: TRUE
-urXVT.KEYSYM.m-U:           PERL:URL-SELECT:SELECT_NEXT
-urXVT.KEYSYM.m-eSCAPE:      PERL:KEYBOARD-SELECT:ACTIVATE
-urXVT.KEYSYM.m-S:           PERL:KEYBOARD-SELECT:SEARCH
+! Xft
+Xft.dpi: 96
+Xft.antialias: true
+Xft.rgba: rgb
+Xft.hinting: true
+Xft.hintstyle: autohint
+Xft.lcdfilter: lcddefault
+! URxvt
+URxvt.scrollBar: false
+URxvt.loginShell: true
+URxvt.font: xft:Monaco for Powerline:size=11
+URxvt.letterSpace: -1
+URxvt.termName: rxvt-256color
+URxvt.underlineURLs: true
+URxvt.urlLauncher: chromium
+URxvt.perl-ext-common:  default,matcher,font-size
+URxvt.matcher.button:   1 
+!URxvt.perl-lib: /home/username/.urxvt/
+URxvt.perl-ext: selection,mark-yank-urls,font-size
+URxvt.keysym.C-equal: perl:font:increase
+URxvt.keysym.C-minus: perl:font:decrease
+URxvt.perl-ext-common:      default,clipboard,url-select,keyboard-select
+URxvt.url-select.launcher:  chromium
+URxvt.url-select.underline: true
+URxvt.keysym.M-u:           perl:url-select:select_next
+URxvt.keysym.M-Escape:      perl:keyboard-select:activate
+URxvt.keysym.M-s:           perl:keyboard-select:search
 
-urXVT.KEYSYM.m-C:   PERL:CLIPBOARD:COPY
-urXVT.KEYSYM.m-V:   PERL:CLIPBOARD:PASTE
-urXVT.KEYSYM.m-c-V: PERL:CLIPBOARD:PASTE_ESCAPED
+URxvt.keysym.M-c:   perl:clipboard:copy
+URxvt.keysym.M-v:   perl:clipboard:paste
+URxvt.keysym.M-C-v: perl:clipboard:paste_escaped
 
-urXVT.KEYSYM.c-uP:     PERL:FONT-SIZE:INCREASE
-urXVT.KEYSYM.c-dOWN:   PERL:FONT-SIZE:DECREASE
-urXVT.KEYSYM.c-s-uP:   PERL:FONT-SIZE:INCGLOBAL
-urXVT.KEYSYM.c-s-dOWN: PERL:FONT-SIZE:DECGLOBAL
+URxvt.keysym.C-Up:     perl:font-size:increase
+URxvt.keysym.C-Down:   perl:font-size:decrease
+URxvt.keysym.C-S-Up:   perl:font-size:incglobal
+URxvt.keysym.C-S-Down: perl:font-size:decglobal
 
-urXVT.CLIPBOARD.COPYCMD:  XSEL -IB
-urXVT.CLIPBO ARD.PASTECMD: XSEL -OB
+URxvt.clipboard.copycmd:  xsel -ib
+URxvt.clipbo ard.pastecmd: xsel -ob
 
-#INCLUDE ".xRESOURCES.COLORS"
+#include ".Xresources.colors"

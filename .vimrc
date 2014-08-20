@@ -83,6 +83,7 @@ let g:EasyMotion_leader_key = '<Space><Space>'
 " ULTISNIPS
 " ~~~~~~~~~
 Bundle 'SirVer/ultisnips'
+Bundle 'honza/vim-snippets'
 let g:UltiSnipsExpandTrigger       = "<tab>"
 let g:UltiSnipsJumpForwardTrigger  = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
@@ -101,23 +102,25 @@ Bundle 'tpope/vim-fugitive'
 " SUPERTAB
 " ~~~~~~~~~~~~
 Bundle 'ervandew/supertab'
-Bundle 'derekwyatt/vim-protodef'
+" Bundle 'derekwyatt/vim-protodef'
+
+" -----------------------------------------------------------------------------
+" VIM-FSWITCH - companion file switcher
+" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+" Bundle 'derekwyatt/vim-fswitch'
 
 " -----------------------------------------------------------------------------
 " STD_C
 " ~~~~~
-Bundle 'vim-scripts/std_c.zip'
-let c_C11            = 1
+" Bundle 'vim-scripts/std_c.zip'
+let c_syntax_for_h   = 1
+let c_C89            = 1
 let c_warn_8bitchars = 1
 let c_warn_multichar = 1
 let c_warn_digraph   = 1
 let c_warn_trigraph  = 1
 let c_no_octal       = 1
-
-" -----------------------------------------------------------------------------
-" VIM-FSWITCH - companion file switcher
-" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Bundle 'derekwyatt/vim-fswitch'
+let c_no_curly_error = 1
 
 " -----------------------------------------------------------------------------
 " CLANG_COMPLETE
@@ -136,6 +139,8 @@ filetype plugin indent on     " required after vundle bundles
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Bundle 'rhysd/vim-clang-format'
 let g:clang_format#style_options = {
+            \ "ColumnLimit":                80,
+            \ "BreakBeforeBraces": "Linux",
             \ "AccessModifierOffset":                -4,
             \ "AllowShortIfStatementsOnASingleLine": "true",
             \ "AlwaysBreakTemplateDeclarations":     "true",
@@ -150,12 +155,12 @@ autocmd FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>
 " VIM-EASY-ALIGN - very flexible text aligner
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Bundle 'junegunn/vim-easy-align'
-
+vmap <Enter> <Plug>(EasyAlign)
 " -----------------------------------------------------------------------------
 " VIM-MARKDOWN - when I use vim for plain text editing
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Bundle 'plasticboy/vim-markdown'
-autocmd BufNewFile,BufRead *.md,*.markdown,*.txt 
+autocmd BufNewFile,BufRead *.md,*.markdown
             \set foldcolumn=2 
             \| highlight! link FoldColumn Normal 
             \| set textwidth=60 
@@ -190,15 +195,17 @@ noremap <SPACE>k {
 noremap <c-j> }
 noremap <c-k> {
 noremap - A
-imap ;; <C-o>A;<CR>
+imap ;; <C-o>A;
 nnoremap ; :
-
+noremap ;; A;
 " -----------------------------------------------------------------------------
 " UPDATE CTAGS 
 " ~~~~~~~~~~~~
-au BufWritePost *.c,*.cpp,*.h silent! !ctags --c++-kinds=+p 
-    \ --fields=+iaS --extra=+q --language-force=C++ -R . &
+" au BufWritePost *.c,*.cpp,*.h silent! !ctags --c++-kinds=+p 
+    " \ --fields=+iaS --extra=+q --language-force=C++ -R . &
 
+" au BufWritePost *.c,*.cpp,*.h silent! !ctags 
+"     \ --fields=+iaS --extra=+q --language-force=C -R . &
 " -----------------------------------------------------------------------------
 " Remember last cursor position in opened file
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -210,7 +217,13 @@ autocmd BufReadPost *
 " -----------------------------------------------------------------------------
 " COLOR THEME
 " ~~~~~~~~~~~
-colorscheme dark-dreams
+colorscheme darker-dreams
 set cursorline
 
-map <SPACE>q ;%s/virtual//g \| %s/;/\r{\r}\r/g \|  g/^[a-z]*[ ]/s/[ ]/ ClassName::/
+Bundle 'octol/vim-cpp-enhanced-highlight'
+Bundle 'tpope/vim-surround'
+
+
+set iskeyword-=_
+
+filetype plugin indent on     " required after vundle bundles
