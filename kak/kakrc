@@ -1,0 +1,84 @@
+#------------------------------------------------------------------------------
+# Basic stuff
+hook global WinCreate .* %{addhl number_lines}
+colorscheme cityscape
+map global normal = <a-i>
+map global normal 0 gh
+map global normal <tab> '<a-;>'
+map global normal <backspace> 'eval ga'
+map global normal <f1> 'eval :b '
+
+#------------------------------------------------------------------------------
+# Highlight current word (from mawwww's kakrc file)
+decl -hidden regex curword
+face CurWord default,rgb:300010
+hook global WinCreate .* %{
+    addhl show_matching
+    addhl dynregex '%reg{/}' 0:+u
+
+    # Highlight the word under the cursor
+    addhl dynregex '%opt{curword}' 0:CurWord
+}
+hook global NormalIdle .* %{
+    eval -draft %{ try %{
+        exec <space><a-i>w <a-k>^\w+$<ret>
+        set buffer curword "\b\Q%val{selection}\E\b"
+    } catch %{
+        set buffer curword ''
+    } }
+}
+
+#------------------------------------------------------------------------------
+# C++ stuff
+
+# Jump to next code block (including inner blocks)
+map global normal ` 'f{m<a-;>;'
+# Select current code block
+map global normal <a-`> 'ghF{ML' 
+# Automatically enable clang-auto-complete 
+hook global WinSetOption filetype=cpp %{
+  clang-enable-autocomplete
+}
+# Create a new c++ file pair
+def -params .. cc  -docstring "Create new c++ source and header files." %{
+    %sh{
+         echo "#include \"$@.hh\"" >> "$@".cc
+         printf %s\\n "
+             eval %{
+             new
+             edit "$@".cc
+             write
+             edit "$@".h
+             write
+             buffer $kak_bufname
+         }"
+     }
+}
+# Run cmake and then make in a temporary directory
+# TODO: Add option to execute a binary 
+def -params .. cmake -docstring "CMake utility wrapper" %{ %sh{
+     while [ ! -f "CMakeLists.txt" ]; do cd ..; done
+     output=$(mktemp -d -t kak-cmake.XXXXXXXX)/fifo
+     output2=$(mktemp -d -t kak-cmake.XXXXXXXX)/fifo2
+     mkfifo ${output}
+     mkfifo ${output2}
+     builddir=$(mktemp -d -t kak-cmake.XXXXXXXX)
+     mypwd=$(pwd)
+     ( eval cd ${builddir} && cmake ${mypwd} "$@" > ${output} 2>&1 ; make -j 4 > ${output2} 2>&1 ) > /dev/null 2>&1 < /dev/null &
+     printf %s\\n "eval -try-client '$kak_opt_toolsclient' %{
+               edit! -fifo ${output} -scroll *cmake*
+               set buffer filetype cmake
+               hook -group fifo buffer BufCloseFifo .* %{
+                   nop %sh{ rm -r $(dirname ${output}) }
+                   rmhooks buffer fifo
+               }
+               edit! -fifo ${output2} -scroll *make*
+               set buffer filetype make
+               hook -group fifo buffer BufCloseFifo .* %{
+                   nop %sh{ rm -r $(dirname ${output2}) }
+                   rmhooks buffer fifo
+                   buffer *cmake*
+		   eval make-next
+               }
+           }"
+}  }
