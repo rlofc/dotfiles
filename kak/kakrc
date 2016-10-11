@@ -1,17 +1,27 @@
-#------------------------------------------------------------------------------
-# Basic stuff
 hook global WinCreate .* %{addhl number_lines}
-colorscheme cityscape
+colorscheme dark
 map global normal = <a-i>
 map global normal 0 gh
+hook global WinSetOption filetype=cpp %{
+  clang-enable-autocomplete
+}
+
+map global normal ` 'f{m<a-;>;'
+map global normal <a-`> 'ghF{ML' 
+
 map global normal <tab> '<a-;>'
+
 map global normal <backspace> 'eval ga'
 map global normal <f1> 'eval :b '
+map global insert <tab> '    '
 
-#------------------------------------------------------------------------------
-# Highlight current word (from mawwww's kakrc file)
+map global normal <f12> 'eval :cmake<ret>' 
+map global normal <c-p> 'eval :e '
+
+
 decl -hidden regex curword
 face CurWord default,rgb:300010
+
 hook global WinCreate .* %{
     addhl show_matching
     addhl dynregex '%reg{/}' 0:+u
@@ -19,6 +29,7 @@ hook global WinCreate .* %{
     # Highlight the word under the cursor
     addhl dynregex '%opt{curword}' 0:CurWord
 }
+
 hook global NormalIdle .* %{
     eval -draft %{ try %{
         exec <space><a-i>w <a-k>^\w+$<ret>
@@ -28,18 +39,27 @@ hook global NormalIdle .* %{
     } }
 }
 
-#------------------------------------------------------------------------------
-# C++ stuff
 
-# Jump to next code block (including inner blocks)
-map global normal ` 'f{m<a-;>;'
-# Select current code block
-map global normal <a-`> 'ghF{ML' 
-# Automatically enable clang-auto-complete 
-hook global WinSetOption filetype=cpp %{
-  clang-enable-autocomplete
+
+# 【WIP】 Auto close matching block on insertion
+hook global InsertChar '"' %{ auto_insert_char '"' }
+
+#def -hidden -params 1 auto_insert_char %{
+def -params 1 -docstring "test"  auto_insert_char %{
+  eval -no-hooks %{
+    try %{
+      exec -draft %{ \; H <a-k> %arg{1} %arg{1} <ret> }
+      exec '<del>'
+    } \
+    catch %{
+      try %{
+        exec -draft %{ \; h h <a-K> [ \w %arg{1} ] <ret> l <a-k> \W <ret> }
+        exec %{ i %arg{1} <left> }
+      }
+    }
+  }
 }
-# Create a new c++ file pair
+
 def -params .. cc  -docstring "Create new c++ source and header files." %{
     %sh{
          echo "#include \"$@.hh\"" >> "$@".cc
@@ -48,20 +68,21 @@ def -params .. cc  -docstring "Create new c++ source and header files." %{
              new
              edit "$@".cc
              write
-             edit "$@".h
+             edit "$@".hh
              write
              buffer $kak_bufname
          }"
      }
 }
-# Run cmake and then make in a temporary directory
-# TODO: Add option to execute a binary 
+
+
 def -params .. cmake -docstring "CMake utility wrapper" %{ %sh{
      while [ ! -f "CMakeLists.txt" ]; do cd ..; done
      output=$(mktemp -d -t kak-cmake.XXXXXXXX)/fifo
      output2=$(mktemp -d -t kak-cmake.XXXXXXXX)/fifo2
      mkfifo ${output}
      mkfifo ${output2}
+     #( eval ${kak_opt_cmakecmd} "$@" > ${output} 2>&1 ) > /dev/null 2>&1 < /dev/null &
      builddir=$(mktemp -d -t kak-cmake.XXXXXXXX)
      mypwd=$(pwd)
      ( eval cd ${builddir} && cmake ${mypwd} "$@" > ${output} 2>&1 ; make -j 4 > ${output2} 2>&1 ) > /dev/null 2>&1 < /dev/null &
@@ -81,4 +102,18 @@ def -params .. cmake -docstring "CMake utility wrapper" %{ %sh{
 		   eval make-next
                }
            }"
-}  }
+} 
+}
+
+hook global WinSetOption filetype=cpp %{ set window formatcmd 'clang-format' }
+hook global WinSetOption filetype=h %{ set window formatcmd 'clang-format' }
+hook global WinSetOption filetype=(?!cpp).* %{ }
+hook global BufWritePre .*(cpp) %{ format }
+
+def clean_whitespaces %{
+  eval -draft -itersel %{
+    try %{ exec -draft -itersel s <ret>d          } catch %{ echo '' }
+    try %{ exec -draft -itersel s^\h+|\h+$<ret>d  } catch %{ echo '' }
+    try %{ exec -draft -itersel s\h+<ret>c<space> } catch %{ echo '' }
+  }
+}
