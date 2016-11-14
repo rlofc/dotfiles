@@ -16,8 +16,13 @@ map global normal <f1> 'eval :b '
 map global insert <tab> '    '
 
 map global normal <f12> 'eval :cmake<ret>' 
-map global normal <c-p> 'eval :e '
 
+def Edit -params 1 -shell-candidates %{ find . -maxdepth 3 -type f } %{ edit %arg{1} }
+map global normal <c-p> 'eval :Edit '
+
+# turn code on and off
+map global normal <f5> "Z<a-;>O#if 0<esc>jzo<esc>i#endif<esc>"
+map global normal <f6> "<a-/>#if 0<ret>Xd/#endif<ret>Xd"
 
 decl -hidden regex curword
 face CurWord default,rgb:300010
