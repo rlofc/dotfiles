@@ -16,8 +16,8 @@ darkblue=#668ee3
 while true 
 do 
    case "$(ip addr | grep -o tun0 | tail -1)" in
-     "") VPN="$(printf "^c$red^NO VPN")";;
-     "tun0") VPN="$(printf "^c$green^VPN")";;
+     "") VPN="$(printf "^c$red^")";;
+     "tun0") VPN="$(printf "^c$green^󰦝")";;
    esac
    case "$(xset -q|grep LED| awk '{ print $10 }')" in
      "00000000") KBD="EN" ;;
@@ -57,7 +57,7 @@ do
 
    vol="$(amixer -c 2 sget 'BEHRINGER UMC Output 1-2',1 | tail -n1 | sed -r 's/.*\[(.*)%\].*/\1/')"
    if [[ $(echo $vol " > 80" | bc) -eq "1" ]]; then
-      vol=$(echo "\x02"$vol)
+      vol=$(echo $vol)
    fi
    vol="^c$void^^b$black^  $vol%"
 
@@ -87,7 +87,7 @@ do
    updates="^c$void^ 󰚰"
 
    date="^c$black^ ^b$darkblue^ 󱑆 ^c$black^^b$blue^ $(date "+%a %d %b %H:%M")"
-   taskbar_info=$(echo -e $updates $VPN "^b$grey^ " $rx_prate " " $tx_prate "^b$black^ " $cpu_pused$mem_used"Mb" " " $temp" "$root_vol" "$files_vol $vol "" $date "" $uptime "^c$void^^b$black^" $KBD " ") 
+   taskbar_info=$(echo -e $updates "^b$grey^ " $VPN "" $rx_prate "" $tx_prate "^b$black^ " $cpu_pused$mem_used"Mb" " " $temp" "$root_vol" "$files_vol $vol "" $date "" $uptime "^c$void^^b$black^" $KBD " ") 
    xsetroot -name "$taskbar_info" 
 
    # reset old rates
