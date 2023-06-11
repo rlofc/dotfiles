@@ -13,6 +13,8 @@ red=#d47d85
 yellow=#e0af68
 darkblue=#668ee3
 
+updates="^c$void^ 󰚰"
+
 while true 
 do 
    case "$(ip addr | grep -o tun0 | tail -1)" in
@@ -84,7 +86,18 @@ do
       temp="$(printf "^c$blue^󰏈 ${temp}")"
    fi
 
-   updates="^c$void^ 󰚰"
+   if [[ $(echo "($(date +%H)%2)" | bc) -eq "0" ]]; then
+      MMSS=$(date +%M%S)
+      if [ "$MMSS" = "0000" ] || [ "$MMSS" = "0001" ] || [ "$MMSS" = "0002" ]; then
+        nupdates=$(checkupdates | wc -l)
+        if [[ $(echo $nupdates " > 10" | bc) -eq "1" ]]; then
+          updates="^c$yellow^ 󰚰"
+        fi
+        if [[ $(echo $nupdates " > 50" | bc) -eq "1" ]]; then
+          updates="^c$red^ 󰚰"
+        fi
+      fi
+   fi
 
    date="^c$black^ ^b$darkblue^ 󱑆 ^c$black^^b$blue^ $(date "+%a %d %b %H:%M")"
    taskbar_info=$(echo -e $updates "^b$grey^ " $VPN "" $rx_prate "" $tx_prate "^b$black^ " $cpu_pused$mem_used"Mb" " " $temp" "$root_vol" "$files_vol $vol "" $date "" $uptime "^c$void^^b$black^" $KBD " ") 
