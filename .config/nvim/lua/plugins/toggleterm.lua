@@ -1,6 +1,5 @@
 local M = {
   "akinsho/toggleterm.nvim",
-  commit = "19aad0f41f47affbba1274f05e3c067e6d718e1e",
   event = "VeryLazy",
 }
 
@@ -12,14 +11,14 @@ function M.config()
 
   toggleterm.setup {
     size = 20,
-    open_mapping = [[<c-\>]],
+    open_mapping = [[<F4>]],
     hide_numbers = true,
     shade_terminals = true,
     shading_factor = 2,
     start_in_insert = true,
     insert_mappings = true,
     persist_size = true,
-    direction = "float",
+    direction = "horizontal",
     close_on_exit = true,
     shell = vim.o.shell,
     float_opts = {
@@ -39,7 +38,7 @@ function M.config()
   vim.cmd "autocmd! TermOpen term://* lua set_terminal_keymaps()"
 
   local Terminal = require("toggleterm.terminal").Terminal
-  local lazygit = Terminal:new { cmd = "lazygit", hidden = true }
+  local lazygit = Terminal:new { cmd = "lazygit", direction = "float", hidden = true }
   local tig = Terminal:new { cmd = "tig", hidden = true }
 
   function _TIG_TOGGLE()

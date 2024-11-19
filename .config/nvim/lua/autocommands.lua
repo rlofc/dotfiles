@@ -23,8 +23,26 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     vim.opt_local.spell = true
   end,
 })
+
+vim.api.nvim_create_autocmd({ "FileType" }, {
+  pattern = { "vimwiki" },
+  callback = function()
+    require('cmp').setup.buffer { enabled = false }
+    vim.cmd [[
+      set foldlevel=3
+      autocmd InsertCharPre * if search('\v(%^|[.!?]\_s)\_s*%#', 'bcnw') != 0 | let v:char = toupper(v:char) | endif
+    ]]
+  end,
+})
+
 -- Automatically close tab/vim when nvim-tree is the last window in the tab
-vim.cmd "autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif"
+-- vim.cmd "autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif"
+
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
+  callback = function()
+    require('gitsigns').refresh()
+  end,
+})
 
 vim.api.nvim_create_autocmd({ "VimResized" }, {
   callback = function()
@@ -38,11 +56,17 @@ vim.api.nvim_create_autocmd({ "TextYankPost" }, {
   end,
 })
 
+vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+  pattern = { "*" },
+  command = [[%s/\s\+$//e]],
+})
+
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
   pattern = { "*.java" },
   callback = function()
     vim.lsp.codelens.refresh()
   end,
+
 })
 
 vim.api.nvim_create_autocmd({ "VimEnter" }, {
@@ -61,6 +85,8 @@ vim.api.nvim_create_autocmd({ "VimEnter" }, {
       let wiki_2 = {}
       let wiki_2.path = '~/private/'
       let wiki_2.path_html = '~/private_html/'
+      let wiki_2.syntax = 'markdown'
+      let wiki_2.ext = 'md'
       let wiki_3 = {}
       "let wiki_3.syntax = 'markdown'
       "let wiki_3.ext = '.md'
@@ -69,6 +95,8 @@ vim.api.nvim_create_autocmd({ "VimEnter" }, {
       let g:vimwiki_list = [wiki_1, wiki_2, wiki_3]
       let g:vimwiki_folding = 'expr'
       let g:vimwiki_autowriteall=1
+      let g:vimwiki_auto_header=1
+      nnoremap <leader><Tab> za
     ]]
   end,
 })

@@ -23,10 +23,12 @@ vim.g.mapleader = " "
 keymap("n", "<F12>", ":w<CR>", opts)
 keymap("i", "<F12>", "<ESC>:w<CR>i", opts)
 keymap("n", "<C-`>", ":ToggleTerm<CR>", opts)
-keymap("n", "<C-q>", "q", opts)
-keymap("n", "q", ":quit<CR>", opts)
+keymap("n", "<C-q>", ":bd<CR>", opts)
+keymap("n", "<C-x>", ":wq<CR>", opts)
+keymap("i", "<C-x>", "<ESC>:wq<CR>", opts)
 keymap("n", "gw", ":HopWord<CR>", opts)
-keymap("n", "<F5>", ":OverseerRunCmd make<cr>", make_opts({ desc = "overseer make" }))
+keymap("n", "<F5>", "<ESC>:wa<CR>:OverseerRunCmd make<cr>", make_opts({ desc = "overseer make" }))
+keymap("i", "<F5>", "<ESC>:wa<CR>:OverseerRunCmd make<cr>", make_opts({ desc = "overseer make" }))
 keymap("n", "<F6>", ":OverseerQuickAction open float<cr>", make_opts({ desc = "overseer popup" }))
 
 -- Normal --
@@ -67,8 +69,8 @@ keymap("v", ">", ">gv", opts)
 -- Plugins --
 
 -- NvimTree
-keymap("n", "<leader>e", ":NvimTreeToggle<CR>", make_opts({ desc = "tree" }))
-keymap("n", "<F3>", ":NvimTreeToggle<CR>", make_opts({ desc = "tree" }))
+-- keymap("n", "<leader>e", ":NvimTreeToggle<CR>", make_opts({ desc = "tree" }))
+-- keymap("n", "<F3>", ":NvimTreeToggle<CR>", make_opts({ desc = "tree" }))
 
 -- Telescope
 keymap("n", "<leader><leader>", ":Telescope find_files<CR>", opts)
@@ -80,7 +82,15 @@ keymap("n", "<leader>fb", ":Telescope buffers<CR>", opts)
 keymap("n", "<leader>fd", ":Telescope diagnostics<CR>", opts)
 keymap("n", "<leader>fs", ":Telescope lsp_document_symbols<CR>", opts)
 keymap("n", "<leader>fg", ":Telescope lsp_dynamic_workspace_symbols<CR>", opts)
-
+keymap("n", "<leader>fw",
+  ":execute 'Telescope find_files search_dirs={\"' . vimwiki#vars#get_wikilocal('path') . '\"}'<CR>", opts)
+keymap("n", "<leader>fwf",
+  ":execute 'Telescope find_files search_dirs={\"' . vimwiki#vars#get_wikilocal('path') . '\"}'<CR>", opts)
+keymap("n", "<leader>fws",
+  ":execute 'Telescope live_grep search_dirs={\"' . vimwiki#vars#get_wikilocal('path') . '\"}'<CR>", opts)
+keymap("n", "<leader>fz",
+  "<cmd>lua require'telescope.builtin'.grep_string{ shorten_path = true, word_match = '-w', only_sort_text = true, search = '' }<cr>",
+  opts)
 -- Git
 
 -- keymap("n", "<leader>gg", "<cmd>lua _TIG_TOGGLE()<CR>", make_opts({ desc = "tig" }))
@@ -118,3 +128,7 @@ keymap("n", "<leader>of", ":OverseerQuickAction open float<cr>", make_opts({ des
 keymap("n", "<leader>cc", ":e $MYVIMRC<CR>", make_opts({ desc = "open" }))
 keymap("n", "<leader>cf", ":cd ~/.config/nvim | Telescope find_files<CR>", make_opts({ desc = "open" }))
 keymap("n", "<leader>cm", ":map<CR>", make_opts({ desc = "map" }))
+
+keymap("n", "<leader>;", "mmA;<Esc>`m")
+keymap("i", "<C-;>", "<Esc>mmA;<Esc>`ma")
+keymap("n", "<F11>", ":RustLsp codeAction<CR>")

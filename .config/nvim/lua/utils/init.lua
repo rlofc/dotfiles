@@ -28,6 +28,7 @@ M.reload_config = function()
   end
 
   dofile(vim.env.MYVIMRC)
+  vim.o.guifont = "JetBrainsMonoNL NFM Light:h14" -- text below applies for VimScript
 end
 
 return M

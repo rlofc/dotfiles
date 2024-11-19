@@ -6,36 +6,36 @@ local M = {
 
 M.name = "onedark"
 function M.config()
-  require('onedark').setup {
-    style = 'deep',
-    highlights = {
-      Normal = {
-        bg = "#10121A"
-      },
-      EndOfBuffer = {
-        bg = "#10121A"
-      },
-      NormalFloat = {
-        bg = "#10121A"
-      },
-      FloatBorder = {
-        bg = "#10121A"
-      },
-      SignColumn = {
-        bg = "#10121A"
-      },
-      CursorLine = {
-        bg = "#080910"
-      },
-      VertSplit = {
-        fg = "#080910"
-      },
-      LineNr = {
-        fg = "#080910"
-      },
-    }
-  }
-
+  -- require('onedark').setup {
+  --   style = 'deep',
+  --   highlights = {
+  --     Normal = {
+  --       bg = "#10121A"
+  --     },
+  --     EndOfBuffer = {
+  --       bg = "#10121A"
+  --     },
+  --     NormalFloat = {
+  --       bg = "#10121A"
+  --     },
+  --     FloatBorder = {
+  --       bg = "#10121A"
+  --     },
+  --     SignColumn = {
+  --       bg = "#10121A"
+  --     },
+  --     CursorLine = {
+  --       bg = "#080910"
+  --     },
+  --     VertSplit = {
+  --       fg = "#080910"
+  --     },
+  --     LineNr = {
+  --       fg = "#080910"
+  --     },
+  --   }
+  -- }
+  --
   -- pcall(vim.cmd.colorscheme, "tokyonight-night")
   -- local status_ok, _ = pcall(vim.cmd.colorscheme, M.name)
   -- if not status_ok then
