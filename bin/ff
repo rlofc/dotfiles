@@ -1,0 +1,4 @@
+#!/bin/bash
+tempname=$(mktemp -u); proname=$(echo $tempname | cut -f2 -d'.')
+cp -R ~/bin/ffprofile $tempname
+firefox --profile "$tempname" -no-remote $1
