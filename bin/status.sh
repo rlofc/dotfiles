@@ -23,6 +23,7 @@ do
    esac
    case "$(xset -q|grep LED| awk '{ print $10 }')" in
      "00000000") KBD="EN" ;;
+     "00000002") KBD="EN" ;;
      "00001004") KBD="\x02HE" ;;
      *) KBD="unknown" ;;
    esac
@@ -31,7 +32,7 @@ do
    tx_now=$(cat /sys/class/net/enp34s0/statistics/tx_bytes)
    let rx_rate=($rx_now-$rx_old)/1024
    let tx_rate=($tx_now-$tx_old)/1024
-   let temp=$(cat /sys/class/hwmon/hwmon1/temp1_input)/1000
+   let temp=$(cat /sys/class/hwmon/hwmon2/temp2_input)/1000
 
    eval $(awk '/^cpu /{print "cpu_idle_now=" $5 "; cpu_total_now=" $2+$3+$4+$5 }' /proc/stat)
    cpu_interval=$((cpu_total_now-${cpu_total_old:-0}))
@@ -39,7 +40,7 @@ do
 
    mem_used="$(free -m | head -2 | tail -1 | awk '{print $7}')"
    if [[ $(echo $mem_used " < 3000" | bc) -eq "1" ]]; then
-      mem_used=$(printf "^c$black^ ^b$red^   $mem_used")
+      mem_used=$(printf "^c$black^ ^b$red^   $mem_used ")
     else
       mem_used=$(printf "^c$void^   $mem_used")
    fi
@@ -80,10 +81,10 @@ do
       cpu_pused="$(printf "^c$void^  %%${cpu_used}")"
    fi
 
-   if [[ $(echo $temp " > 50" | bc) -eq "1" ]]; then
-      temp="$(printf "^c$red^󰏈 ${temp}")"
+   if [[ $(echo $temp " > 70" | bc) -eq "1" ]]; then
+      temp="$(printf "^b$black^^c$red^󰏈 ${temp}")"
    else
-      temp="$(printf "^c$blue^󰏈 ${temp}")"
+      temp="$(printf "^b$black^^c$blue^󰏈 ${temp}")"
    fi
 
    if [[ $(echo "($(date +%H)%2)" | bc) -eq "0" ]]; then
@@ -99,8 +100,15 @@ do
       fi
    fi
 
+   newmail=$(find  ~/.mail/*-*/Inbox/cur -maxdepth 1 -type f -name '*,' | wc -l)
+   mail="^c$yellow^󰇮"
+   if [[ $newmail -eq "0" ]]; then
+     mail="^c$void^󰇮"
+   fi
+
+
    date="^c$black^ ^b$darkblue^ 󱑆 ^c$black^^b$blue^ $(date "+%a %d %b %H:%M")"
-   taskbar_info=$(echo -e $updates "^b$grey^ " $VPN "" $rx_prate "" $tx_prate "^b$black^ " $cpu_pused$mem_used"Mb" " " $temp" "$root_vol" "$files_vol $vol "" $date "" $uptime "^c$void^^b$black^" $KBD " ") 
+   taskbar_info=$(echo -e $mail $updates "^b$grey^ " $VPN "" $rx_prate "" $tx_prate "^b$black^ " $cpu_pused$mem_used"Mb" "^b$black^" $temp" "$root_vol" "$files_vol $vol "" $date "" $uptime "^c$void^^b$black^" $KBD " ") 
    xsetroot -name "$taskbar_info" 
 
    # reset old rates
