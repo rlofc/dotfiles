@@ -103,8 +103,24 @@
 )
 
 (setq catppuccin-flavor 'mocha)
-(setq doom-theme 'catppuccin)
 
+
+;; ----------------------------------------------------------------------------
+;; TERM WINDOW DIVIDER SETUP
+(custom-theme-set-faces! 'catppuccin '(vertical-border :background "#1b1b29" :foreground "#111120"))
+(set-face-inverse-video-p 'vertical-border nil)
+(set-display-table-slot standard-display-table
+                        'vertical-border
+                        (make-glyph-code ?┃))
+(defun my-change-window-divider ()
+  (let ((display-table (or buffer-display-table standard-display-table)))
+    (set-display-table-slot display-table 5 ?│)
+    (set-window-display-table (selected-window) display-table)))
+(add-hook 'window-configuration-change-hook 'my-change-window-divider)
+(set-display-table-slot standard-display-table 'vertical-border ?│)
+
+;; ----------------------------------------------------------------------------
+;; THEME SETUP
 (custom-theme-set-faces! 'catppuccin
   '(default :background "#1b1b29")
   '(fringe :background "#1b1b29")
@@ -115,10 +131,7 @@
   '(avy-background-face :background nil :foreground "#444466")
   '(line-number :foreground "#111120")
   '(hl-line :background "#111120")
-  ;'(region :background "#252535")
-  ;'(region :background "#121220")
   '(region :background "#303042")
-  ;'(region :background "#090915")
   )
 
 
@@ -354,8 +367,11 @@
    (setq rustic-format-trigger 'on-save))
 
 ;; When completing, automatically select the first options
+(setq completion-ignore-case t)
 (use-package corfu
+  :hook (after-init . global-corfu-mode) ;; maybe?
   :custom
+     (corfu-auto t)
      (corfu-preselect 'first)
   )
 
@@ -374,8 +390,9 @@
 (map! :after elysium
       :vn "SPC e" #'elysium-query)
 
-
 (evil-define-key 'normal 'global (kbd "SPC") (make-sparse-keymap))
+(evil-define-key 'normal 'global (kbd "SPC -") #'comment-line)
+(evil-define-key 'visual 'global (kbd "SPC -") #'comment-line)
 (evil-define-key 'normal 'global (kbd "SPC <left>") #'evil-window-left)
 (evil-define-key 'normal 'global (kbd "SPC <right>") #'evil-window-right)
 (evil-define-key 'normal 'global (kbd "SPC <up>") #'evil-window-up)
@@ -438,3 +455,9 @@
 ;;    )
 ;; (setq doom-font (font-spec :family "Iosevka" :size 15 :weight 'semi-light))
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
+
+(setq doom-theme 'catppuccin)
+
+(setq lsp-signature-auto-activate nil)
+(setq lsp-ui-doc-show-with-cursor t)
+(setq lsp-ui-doc-delay 3)
