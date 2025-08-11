@@ -1,82 +1,5 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
-;; Place your private configuration here! Remember, you do not need to run 'doom
-;; sync' after modifying this file!
-
-
-;; Some functionality uses this to identify you, e.g. GPG configuration, email
-;; clients, file templates and snippets. It is optional.
-;; (setq user-full-name "John Doe"
-;;       user-mail-address "john@doe.com")
-
-;; Doom exposes five (optional) variables for controlling fonts in Doom:
-;;
-;; - `doom-font' -- the primary font to use
-;; - `doom-variable-pitch-font' -- a non-monospace font (where applicable)
-;; - `doom-big-font' -- used for `doom-big-font-mode'; use this for
-;;   presentations or streaming.
-;; - `doom-symbol-font' -- for symbols
-;; - `doom-serif-font' -- for the `fixed-pitch-serif' face
-;;
-;; See 'C-h v doom-font' for documentation and more examples of what they
-;; accept. For example:
-;;
-;;(setq doom-font (font-spec :family "Fira Code" :size 12 :weight 'semi-light)
-;;      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
-;;
-;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
-;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
-;; refresh your font settings. If Emacs still can't find your font, it likely
-;; wasn't installed correctly. Font issues are rarely Doom issues!
-
-;; There are two ways to load a theme. Both assume the theme is installed and
-;; available. You can either set `doom-theme' or manually load a theme with the
-;; `load-theme' function. This is the default:
- (setq doom-font (font-spec :family "Iosevka" :size 18 :weight 'semi-light)
-       doom-variable-pitch-font (font-spec :family "sans" :size 13))
-;(setq doom-theme 'doom-one)
-
-;; This determines the style of line numbers in effect. If set to `nil', line
-;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type t)
-
-;; If you use `org' and don't want your org files in the default location below,
-;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/org/")
-
-
-;; Whenever you reconfigure a package, make sure to wrap your config in an
-;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
-;;
-;;   (after! PACKAGE
-;;     (setq x y))
-;;
-;; The exceptions to this rule:
-;;
-;;   - Setting file/directory variables (like `org-directory')
-;;   - Setting variables which explicitly tell you to set them before their
-;;     package is loaded (see 'C-h v VARIABLE' to look up their documentation).
-;;   - Setting doom variables (which start with 'doom-' or '+').
-;;
-;; Here are some additional functions/macros that will help you configure Doom.
-;;
-;; - `load!' for loading external *.el files relative to this one
-;; - `use-package!' for configuring packages
-;; - `after!' for running code after a package has loaded
-;; - `add-load-path!' for adding directories to the `load-path', relative to
-;;   this file. Emacs searches the `load-path' when you load packages with
-;;   `require' or `use-package'.
-;; - `map!' for binding new keys
-;;
-;; To get information about any of these functions/macros, move the cursor over
-;; the highlighted symbol at press 'K' (non-evil users must press 'C-c c k').
-;; This will open documentation for it, including demos of how they are used.
-;; Alternatively, use `C-h o' to look up a symbol (functions, variables, faces,
-;; etc).
-;;
-;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
-;; they are implemented.
-
 
 ;; ****************************************************************************
 ;; CUSTOMIZATIONS
@@ -84,11 +7,28 @@
 ;;
 ;; The order is as follows:
 ;;
-;; 1. Look & Feel mods
-;; 2. Features
-;; 3. Keyboard bindings
+;; 1. Core behavior
+;; 2. Look & Feel
+;; 3. Packages setup
+;; 4. Keyboard bindings
 ;;
 ;; ****************************************************************************
+
+
+;; ****************************************************************************
+;; CORE BEHAVIOUR
+;; ****************************************************************************
+;;
+;; ViM Copy-Paste behavior
+(setq evil-kill-on-visual-paste nil)
+
+(setq lsp-signature-auto-activate nil)
+(setq lsp-ui-doc-show-with-cursor t)
+(setq lsp-ui-doc-delay 3)
+
+(setq org-directory "~/org/")
+(setq org-return-follows-link  t)
+
 
 ;; ****************************************************************************
 ;; LOOK & FEEL
@@ -104,25 +44,23 @@
 
 (setq catppuccin-flavor 'mocha)
 
-
-;; ----------------------------------------------------------------------------
-;; TERM WINDOW DIVIDER SETUP
 (custom-theme-set-faces! 'catppuccin '(vertical-border :background "#1b1b29" :foreground "#111120"))
+;; Set symbol for the border
 (set-face-inverse-video-p 'vertical-border nil)
 (set-display-table-slot standard-display-table
                         'vertical-border
                         (make-glyph-code ?┃))
+
 (defun my-change-window-divider ()
   (let ((display-table (or buffer-display-table standard-display-table)))
     (set-display-table-slot display-table 5 ?│)
     (set-window-display-table (selected-window) display-table)))
+
 (add-hook 'window-configuration-change-hook 'my-change-window-divider)
+
 (set-display-table-slot standard-display-table 'vertical-border ?│)
 
-;; ----------------------------------------------------------------------------
-;; THEME SETUP
 (custom-theme-set-faces! 'catppuccin
-  '(default :background "#1b1b29")
   '(fringe :background "#1b1b29")
   '(avy-lead-face :background nil :foreground "#eeeeff")
   '(avy-lead-face-0 :background nil :foreground "#9999ff")
@@ -134,6 +72,16 @@
   '(region :background "#303042")
   )
 
+(use-package catppuccin-theme
+  :config
+  (catppuccin-set-color 'base "#1b1b29") ;;
+)
+(after! catppuccin-theme
+  (catppuccin-set-color 'base "#1b1b29") ;;
+  (catppuccin-reload)
+)
+
+(setq display-line-numbers-type t)
 
 (setq doom-font (font-spec :family "CommitMono" :size 15 :weight 'Medium))
 
@@ -163,7 +111,6 @@
   :defer
   :init
     (defun advise-dimmer-config-change-handler ()
-      "Advise to only force process if no predicate is truthy."
       (let ((ignore (cl-some (lambda (f) (and (fboundp f) (funcall f)))
                              dimmer-prevent-dimming-predicates)))
         (unless ignore
@@ -171,43 +118,24 @@
             (dimmer-process-all t)))))
 
     (defun corfu-frame-p ()
-      "Check if the buffer is a corfu frame buffer."
       (string-match-p "\\` \\*corfu" (buffer-name)))
 
-     ;;; Instead of corfu-frame-p
-      (defun show-paren-child-frame-p ()
-        "Check if the buffer is a show-paren's context child frame."
-        (string-prefix-p " *show-paren context*" (buffer-name)))
-      ;;; instead of dimmer-configure-corfu
-      (defun dimmer-configure-show-paren-child-frame ()
-        "Convenience settings for show-paren’s child-frame users."
-        (add-to-list
-         'dimmer-prevent-dimming-predicates
-         #'show-paren-child-frame-p))
+    (defun show-paren-child-frame-p ()
+      (string-prefix-p " *show-paren context*" (buffer-name)))
 
-     ;;; Instead of corfu-frame-p
-      (defun lsp-signature-p ()
-        "Check if the buffer is a show-paren's context child frame."
-        ;; (string-prefix-p " *lsp-signature*" (buffer-name)))
-        ;;(string-prefix-p "^ \\*.*posframe.*\\*$" (buffer-name)))
-        (string-prefix-p " *Flycheck errors*" (buffer-name)))
-      ;;; instead of dimmer-configure-corfu
-      (defun dimmer-configure-lsp-signature ()
-        "Convenience settings for show-paren’s child-frame users."
-        (add-to-list
-         'dimmer-prevent-dimming-predicates
-         #'lsp-signature-p))
+
+    (defun lsp-signature-p ()
+      (string-prefix-p " *Flycheck errors*" (buffer-name)))
+
+    (defun dimmer-configure-lsp-signature ()
+      (add-to-list 'dimmer-prevent-dimming-predicates #'lsp-signature-p))
 
     (defun dimmer-configure-corfu ()
-      "Convenience settings for corfu users."
-      (add-to-list
-       'dimmer-prevent-dimming-predicates
-       #'corfu-frame-p))
+      (add-to-list 'dimmer-prevent-dimming-predicates #'corfu-frame-p))
+
     (defun dimmer-configure-minibuffers ()
-      "Convenience settings for corfu users."
-      (add-to-list
-       'dimmer-prevent-dimming-predicates
-       #'which-key--popup-showing-p))
+      (add-to-list 'dimmer-prevent-dimming-predicates #'which-key--popup-showing-p))
+
   :custom
     (dimmer-watch-frame-focus-events nil)
     (dimmer-exclusion-regexp-list '("^\\*[h|H]elm.*\\*"
@@ -240,8 +168,12 @@
     (dimmer-configure-lsp-signature)
     (dimmer-configure-minibuffers)
    )
+(defun dimmer-lsp-ui-doc-p ()
+  (string-prefix-p " *lsp-ui-doc-" (buffer-name)))
+(add-to-list 'dimmer-prevent-dimming-predicates #'dimmer-lsp-ui-doc-p)
 ;; END DIMMER Config
 ;; ----------------------------------------------------------------------------
+
 
 ;; ----------------------------------------------------------------------------
 ;; Make the mode-line shorter for rust buffers
@@ -258,35 +190,18 @@
 
 
 ;; ****************************************************************************
-;; FEATURES
+;; PACKAGES SETUP
 ;; ****************************************************************************
+;; ----------------------------------------------------------------------------
 
-
-(evil-define-motion my-evilem-forward-word-begin(count)
-  (let ((last (point)))
-    (call-interactively #'evil-forward-word-begin)
-    (while (and (not (= (char-syntax (char-after (point))) ?w))
-                (not (= last (point)))
-             )
-      (setq last (point))
-      (call-interactively #'evil-forward-word-begin))
-  ))
-
-(use-package evil-easymotion
-  :config
-  (evilem-define (kbd "g s w") #'my-evilem-forward-word-begin)
-)
-
-(use-package evil-snipe
-  :config
-  (setq evil-snipe-scope 'buffer))
+;; HOTFUZZ
+(setq completion-styles '(hotfuzz))
 
 
 ;; For all programming modes
 (add-hook 'prog-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
 ;; For all modes
 (add-hook 'after-change-major-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
-
 
 (with-eval-after-load 'evil
     (defalias #'forward-evil-word #'forward-evil-symbol)
@@ -295,72 +210,16 @@
 
 
 ;; ----------------------------------------------------------------------------
-;; ELYSIUM config
-;; (taken from the official docs)
-(use-package elysium
-  :custom
-  (elysium-window-style 'nil)) ; vertical, horizontal or nil
-
-(use-package gptel
-  :config
-  (defun gptel-api-key ()
-    (shell-command-to-string "pass show openai/rlofc"))
-  )
-
-(use-package smerge-mode
-  :ensure nil
-  :hook
-  (prog-mode . smerge-mode))
-
-
-;; ----------------------------------------------------------------------------
-;; ELYSIUM + SMERGE FIX
-;; designed to enter smerge-mode automatically after applying elysium code
-;; changes
-(defun smerge-try-smerge ()
-  (save-excursion
-    (goto-char (point-min))
-    (when (re-search-forward "^<<<<<<< " nil t)
-      (require 'smerge-mode)
-      (smerge-mode 1))))
-(add-hook 'elysium-apply-changes-hook 'smerge-try-smerge t)
-
-
-;; ----------------------------------------------------------------------------
-;; ORDERLESS
-(defun my-orderless-non-greedy-flex (component)
-  (rx-to-string
-   `(seq ,@(cl-loop
-            for (head . tail) on (string-to-list component)
-            collect `(group ,head)
-            when tail
-            collect `(* (not ,(car tail)))))))
-
-;; (thanks to https://kristofferbalintona.mposts/202202211546/)
-(use-package orderless
-  :custom
-  (completion-styles '(orderless))
-   (orderless-matching-styles
-    '(
-      my-orderless-non-greedy-flex
-      ;orderless-literal
-      ;orderless-flex
-      ;orderless-prefixes
-      ;orderless-initialism
-      ;orderless-regexp
-      ))
-  )
-
-
+;; WHISPER
 (use-package whisper
-  :bind ("C-," . whisper-run)
   :config
-  (setq whisper-install-directory "/tmp/"
+  (setq whisper-install-directory "/files/bin/whisper/"
         whisper-model "base"
         whisper-language "en"
         whisper-translate nil
         whisper-use-threads (/ (num-processors) 2)))
 
+(global-set-key (kbd "<f3>") 'whisper-run)
 
 (add-hook 'rustic-before-save-hook 'rustic-format-buffer)
 (add-hook! rustic-mode
@@ -374,23 +233,23 @@
      (corfu-auto t)
      (corfu-preselect 'first)
   )
+(add-hook! rustic-mode
+   (setq corfu-preselect 'first))
 
 ;; ****************************************************************************
 ;; KEYYBOARD BINDINGS
 ;; ****************************************************************************
-
-(map! :after evil-easymotion
-      :vn "C-/" #'avy-goto-char-timer)
 
 (map! :after undo-fu
       :vn "u" #'undo-fu-only-undo)
 (map! :after undo-fu
       :vn "C-r" #'undo-fu-only-redo)
 
-(map! :after elysium
-      :vn "SPC e" #'elysium-query)
+;(map! :vn "SPC -" #'comment-line)
 
+(map! :vn "/" #'+default/search-buffer)
 (evil-define-key 'normal 'global (kbd "SPC") (make-sparse-keymap))
+(evil-define-key 'normal 'global (kbd "SPC s a") #'consult-lsp-file-symbols)
 (evil-define-key 'normal 'global (kbd "SPC -") #'comment-line)
 (evil-define-key 'visual 'global (kbd "SPC -") #'comment-line)
 (evil-define-key 'normal 'global (kbd "SPC <left>") #'evil-window-left)
@@ -401,63 +260,248 @@
 (evil-define-key 'normal 'global (kbd "C-l") #'evil-window-right)
 (evil-define-key 'normal 'global (kbd "C-k") #'evil-window-up)
 (evil-define-key 'normal 'global (kbd "C-j") #'evil-window-down)
+(map! "C-l" #'evil-window-right)
+(evil-define-key 'normal 'global (kbd "`") #'evil-visual-line)
+(evil-define-key 'normal 'global (kbd "C-`") #'er/expand-region)
 
 (global-set-key (kbd "<f12>") 'save-buffer)
 (global-set-key (kbd "C-<f12>") 'evil-save-and-close)
+(global-set-key (kbd "C-@") 'er/expand-region)
+(global-set-key (kbd "C-<next>") 'evil-jump-forward)
+(global-set-key (kbd "C-<prior>") 'evil-jump-backward)
+(global-set-key (kbd "C-h") 'evil-window-left)
+(global-set-key (kbd "C-l") 'evil-window-right)
+(global-set-key (kbd "C-k") 'evil-window-up)
+(global-set-key (kbd "C-j") 'evil-window-down)
 
-
-;; Some unused but good to know snippets
-
-;; ----------------------------------------------------------------------------
-;; This is how to hook a message printing the buffer name
-;;
-;; (defun foo () (message "sig: The name of this buffer is: %s." (buffer-name)))
-;; (add-hook 'minibuffer-setup-hook 'foo)
-
-;; ----------------------------------------------------------------------------
-;; Another way to set face attributes:
-;;
-;; (set-face-attribute
-;;     'avy-lead-face
-;;     nil
-;;     :background nil
-;;     :foreground "#eeeeff")
-
-
-;; ----------------------------------------------------------------------------
-;; Setting _ as part of words:
-;;
-;; Variant 1:
-;;
-;;(modify-syntax-entry ?_ "w"
-;;
-;; Variant 2:
-;;
-;;(defadvice evil-inner-word (around underscore-as-word activate)
-;;  (let ((table (copy-syntax-table (syntax-table))))
-;;    (modify-syntax-entry ?_ "w" table)
-;;    (with-syntax-table table
-;;      ad-do-it)))
-;;
-;; Variant 3:
-;;
-;; (modify-syntax-entry ?_ "w" rust-mode-syntax-table)
+;;(global-set-key (kbd "C-<f11>") "!~/bin/scwe.sh")
 
 
 
-;; ----------------------------------------------------------------------------
-;; Various font options:
-;;
-;; (setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 15 :weight 'Medium))
-;; (setq doom-font (font-spec :family "PragmataPro" :size 14 :weight 'bold)
-;;      doom-variable-pitch-font (font-spec :family "Noto Serif" :size 13)
-;;      ivy-posframe-font (font-spec :family "JetBrainsMono" :size 15)
-;;    )
-;; (setq doom-font (font-spec :family "Iosevka" :size 15 :weight 'semi-light))
-;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
+(evil-define-command evil-shell-command-on-region (beg end command)
+ (interactive (let (cmd)
+                 (unless (mark)
+                   (user-error "No active region"))
+                 (setq cmd (read-shell-command "Shell command on region: "))
+                 (list (region-beginning) (region-end)
+                       cmd)))
+  (shell-command-on-region beg end command nil t shell-command-default-error-buffer t (region-noncontiguous-p)))
+(defun run-scwe-script ()
+  (interactive)
+  (evil-shell-command-on-region (region-beginning) (region-end) "~/bin/scwgpt.sh")
+  (smerge-mode 1)
+  )
+(global-set-key (kbd "C-<f11>") 'run-scwe-script)
+
 
 (setq doom-theme 'catppuccin)
+(catppuccin-set-color 'base "#1b1b29") ;;
 
-(setq lsp-signature-auto-activate nil)
-(setq lsp-ui-doc-show-with-cursor t)
-(setq lsp-ui-doc-delay 3)
+
+(define-key evil-motion-state-map (kbd "RET") nil)
+
+;;------------------------------------------------------------------------------------------------
+;; BLAMER
+(use-package blamer
+  :custom
+  (blamer-max-commit-message-length 100)
+  (blamer-idle-time 2.0)
+  (blamer-max-lines 1)
+  (blamer-author-formatter "")
+  (blamer-datetime-formatter "[%s]")
+  (blamer-commit-formatter " ● %s")
+  (blamer-min-offset 20)
+  (blamer-max-lines 1)
+  :config
+  (global-blamer-mode 1))
+
+;; (setq blamer-author-formatter "  ✎ %s ")
+;; (setq blamer-datetime-formatter "[%s]")
+;; (setq blamer-commit-formatter " ● %s")
+
+(map! ;:after blamer-mode
+      :leader
+      :desc "Blamer popup" "g m" #'blamer-show-posframe-commit-info)
+;;
+;;------------------------------------------------------------------------------------------------
+
+;;------------------------------------------------------------------------------------------------
+;; AVY
+(use-package avy
+  :config
+  (setq avy-timeout-seconds 0.2)
+)
+(map! :after avy :vn "SPC j" #'avy-goto-char-timer)
+;;
+;;------------------------------------------------------------------------------------------------
+
+
+(add-hook 'lsp-mode-hook (lambda () (setq lsp-ui-doc-delay 5)))
+
+;;------------------------------------------------------------------------------------------------
+;; DIFF_HL
+;; Setting diff symbols for emacs on tty
+(use-package diff-hl
+  :ensure t
+  :custom ((diff-hl-draw-borders nil)
+           ;; (diff-hl-side 'right)
+           (diff-hl-margin-symbols-alist
+            '((insert . "▐")
+              (delete . "▐")
+              (change . "▐")
+              (unknown . "▐")
+              (ignored . "▐"))))
+  :config
+  (map-keymap (lambda (_k cmd)
+                (put cmd 'repeat-map 'diff-hl-command-map))
+              diff-hl-command-map)
+  (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
+
+(custom-set-faces!
+     '(fringe :foreground "#111120"))
+;;
+;;------------------------------------------------------------------------------------------------
+
+;---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+;; (setq read-process-output-max (* 1024 1024)) ;; 1mb
+;; (setq lsp-idle-delay 0.500)
+;; (setq lsp-log-io nil) ; if set to true can cause a performance hit0
+
+
+; ---------------------------------------------------------------------------------------
+; DISABLE $ SIGN IN FRINGES
+(set-display-table-slot standard-display-table 0 ?\ )
+
+(defvar gptel-lookup--history nil)
+
+(require 'posframe)
+
+(defun gptel-lookup (prompt)
+  (interactive (list (read-string "Ask ChatGPT: " nil gptel-lookup--history)))
+  (when (string= prompt "") (user-error "A prompt is required."))
+  (gptel-request
+   prompt
+   :callback
+   (lambda (response info)
+     (if (not response)
+         (message "gptel-lookup failed with message: %s" (plist-get info :status))
+       (let ((posframe-buffer (get-buffer-create "*gptel-lookup*")))
+         (with-current-buffer posframe-buffer
+           (let ((inhibit-read-only t))
+             (erase-buffer)
+             (insert response)))
+         (posframe-show posframe-buffer
+                        :position (point)
+                        :timeout 5
+                        :width 60
+                        :height 20
+                        :min-width 20
+                        :min-height 10))))))
+
+(dolist (fn '(definition references))
+  (fset (intern (format "+lookup/%s-other-window" fn))
+        (lambda (identifier &optional arg)
+          "TODO"
+          (interactive (list (doom-thing-at-point-or-region)
+                             current-prefix-arg))
+          (let ((pt (point)))
+            (switch-to-buffer-other-window (current-buffer))
+            (goto-char pt)
+            (funcall (intern (format "+lookup/%s" fn)) identifier arg)))))
+
+
+;------------------------------------------------------------------------------------------------
+; VERTICO POSFRAME POSITIONING
+; ----------------------------
+; this will position gui vertico in a centered low position
+; using 300 pixels from the bottom of the screen
+(defun my-vertico-posframe-positioner (info)
+  (cons (/ (- (plist-get info :parent-frame-width)
+              (plist-get info :posframe-width))
+           2)
+        (- (plist-get info :parent-frame-height)
+           (plist-get info :posframe-height)
+           (plist-get info :mode-line-height)
+           (plist-get info :minibuffer-height)
+           300)))
+(setq vertico-posframe-poshandler 'my-vertico-posframe-positioner )
+(setq vertico-posframe-width 120)
+;
+;------------------------------------------------------------------------------------------------
+
+;------------------------------------------------------------------------------------------------
+; GPTEL AGENTS SETUP
+(use-package gptel
+  :config
+  (defun gptel-api-key ()
+    (shell-command-to-string "pass show openai/rlofc"))
+  )
+
+(defvar gptel-rewrite-with-instruction--history nil)
+
+(defun gptel-rewrite-with-instruction (prompt)
+  (interactive (list (read-string "Rewrite instruction: " nil gptel-rewrite-with-instruction--history)))
+  (when (string= prompt "") (user-error "A prompt is required."))
+  (setq gptel--rewrite-message prompt)
+  (gptel-rewrite))
+
+(defun gptel-rewrite-explain ()
+  (interactive)
+  (setq gptel--rewrite-message "Explain this code with inline comments without changing any actual line of code:")
+  (gptel-rewrite))
+
+(defun gptel-rewrite-evolve ()
+  (interactive)
+  (setq gptel--rewrite-message "Suggest an alternative method to implement the following code while retaining its exact functionality:")
+  (gptel-rewrite))
+
+(defun gptel-rewrite-document ()
+  (interactive)
+  (setq gptel--rewrite-message "Provide readable and concise code documentation above the following code. Correctly document any parameters or other language constructs according to the industry standard:")
+  (gptel-rewrite))
+
+(defun gptel-rewrite-refactor ()
+  (interactive)
+  (setq gptel--rewrite-message "Refactor the following code, prefering readability and then performance:")
+  (gptel-rewrite))
+
+(defun gptel-rewrite-optimize ()
+  (interactive)
+  (setq gptel--rewrite-message "Optimize the following code making it run as fast as possible:")
+  (gptel-rewrite))
+
+(defun gptel-rewrite-implement ()
+  (interactive)
+  (setq gptel--rewrite-message "Implement the provided code specification in the most efficient and readable way possible:")
+  (gptel-rewrite))
+
+(defun gptel-rewrite-specify ()
+  (interactive)
+  (setq gptel--rewrite-message "Using the following high-level software requirement, create a detailed specification or design using state-of-the-art design patterns:")
+  (gptel-rewrite))
+
+(map! :leader
+        :prefix ("k" . "AI agents")
+        :desc "refactor" "r" #'gptel-rewrite-refactor
+        :desc "optimize" "o" #'gptel-rewrite-optimize
+        :desc "implement" "i" #'gptel-rewrite-implement
+        :desc "explain" "e" #'gptel-rewrite-explain
+        :desc "evolve" "v" #'gptel-rewrite-evolve
+        :desc "document" "d" #'gptel-rewrite-document
+        :desc "custom" "k" #'gptel-rewrite-with-instruction
+        :desc "specify" "s" #'gptel-rewrite-specify
+        :desc "add to context" "a" #'gptel-add
+        :desc "clear context" "c" #'gptel-context-remove-all
+        :desc "window" "w" #'gptel
+        :desc "send" "s" #'gptel-send)
+
+
+(setq gptel-rewrite-default-action 'merge)
+
+(add-hook 'smerge-mode-hook
+          (lambda ()
+            (if smerge-mode
+                (flycheck-mode -1)
+              (flycheck-mode 1))))
+;
+;------------------------------------------------------------------------------------------------
