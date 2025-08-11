@@ -1,0 +1,11 @@
+{
+    "autosave": 1,
+    "colorcolumn": 80,
+    "colorscheme": "dukelight-tc",
+    "divchars": "  ",
+    "divreverse": false,
+    "ruler": false,
+    "softwrap": true,
+    "statusline": false,
+    "wordwrap": true
+}
