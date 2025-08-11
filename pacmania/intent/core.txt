@@ -1,0 +1,39 @@
+aerc                               ; Email Client for your Terminal
+dhcpcd                             ; DHCP/ IPv4LL/ IPv6RA/ DHCPv6 client
+dmenu                              ; Generic menu for X
+feh                                ; Fast and light imlib2-based image viewer
+firefox                            ; Fast, Private & Safe Web Browser
+firefox-ublock-origin              ; Efficient blocker add-on for various browsers. Fast, potent, and lean
+flameshot                          ; Powerful yet simple to use screenshot software
+fzf                                ; Command-line fuzzy finder
+fzy                                ; A better fuzzy finder
+htop                               ; Interactive process viewer
+iptables                           ; Linux kernel packet control tool (using legacy interface)
+jq                                 ; Command-line JSON processor
+lf                                 ; A terminal file manager inspired by ranger
+llpp                               ; opengl accelerated pdf viewer based on mupdf
+lnav                               ; A curses-based tool for viewing and analyzing log files
+mc                                 ; A file manager that emulates Norton Commander
+micro                              ; Modern and intuitive terminal-based text editor
+ncdu                               ; Disk usage analyzer with an ncurses interface
+ntp                                ; Network Time Protocol reference implementation
+openssh                            ; SSH protocol implementation for remote login, command execution and file transfer
+openvpn                            ; An easy-to-use, robust and highly configurable VPN (Virtual Private Network)
+patch                              ; A utility to apply patch files to original sources
+pass                               ; Stores, retrieves, generates, and synchronizes passwords securely
+sudo                               ; Give certain users the ability to run some commands as root
+sxiv                               ; Simple X Image Viewer
+tmux                               ; Terminal multiplexer
+ublock-origin                      ; Efficient blocker add-on for various browsers. Fast, potent, and lean (unpacked webextension)
+unrar                              ; The RAR uncompression program
+unzip                              ; For extracting and viewing files in .zip archives
+ufw                                ; Uncomplicated and easy to use CLI tool for managing a netfilter firewall
+nnn                                ; The fastest terminal file manager ever written.
+mpv                                ; a free, open source, and cross-platform media player
+python-pipx                        ; pip but with automated venvs
+iftop                              ; Display bandwidth usage on an interface
+sshpass                            ; Fool ssh into accepting an interactive password non-interactively
+w3m                                ; Text-based Web browser as well as pager
+unclutter                          ; Hide the mouse cursor when capturing X11
+yazi                               ; Blazing fast terminal file manager written in Rust, based on async I/O
+asciinema                          ; Record and share terminal sessions

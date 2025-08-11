@@ -1,0 +1,22 @@
+cuda                               ; NVIDIA's GPU programming toolkit
+nvidia                             ; NVIDIA kernel modules
+nvidia-lts                         ; NVIDIA drivers for linux-lts
+nvidia-settings                    ; Tool for configuring the NVIDIA graphics driver
+realtime-privileges                ; Realtime privileges for users
+pavucontrol                        ; PulseAudio Volume Control
+pulseaudio                         ; A featureful, general-purpose sound server
+pulseaudio-equalizer-ladspa        ; A 15-band equalizer for PulseAudio
+pulseaudio-jack                    ; Jack support for PulseAudio
+alsa-plugins                       ; Additional ALSA plugins
+alsa-utils                         ; Advanced Linux Sound Architecture - Utilities
+brother-mfc-l3750cdw               ; LPR and CUPS drivers for the Brother MFC-L3750CDW
+xsensors                           ; X11 interface to lm_sensors - Mystro256 fork
+psensor                            ; Graphical hardware temperature monitoring application
+cpupower                           ; Linux kernel tool to examine and tune power saving related features of your processor
+yubikey-manager                    ; Python library and command line tool for configuring a YubiKey
+yubikey-personalization-gui        ; Yubico YubiKey Personalization GUI
+nct6775-master-dkms-git            ; Nuvoton module for nct67xx chips synced with latest upstream kernel.
+dkms                               ; Dynamic Kernel Modules System
+jack2                              ; The JACK low-latency audio server
+xf86-input-wacom                   ; X.Org Wacom tablet driver
+joyutils                           ; jscal, jstest, and jsattach utilities for the Linux joystick driver

@@ -1,0 +1,12 @@
+xorg-fonts-alias                   ; X.org font alias files
+xorg-server-xephyr                 ; A nested X server that runs as an X application
+xorg-xev                           ; Print contents of X events
+xorg-xhost                         ; Server access control program for X
+xorg-xinit                         ; X.Org initialisation program
+xorg-xinput                        ; Small commandline tool to configure devices
+xorg-xprop                         ; Property displayer for X
+xorg-xrandr                        ; Primitive command line interface to RandR extension
+xorg-xsetroot                      ; Classic X utility to set your root window background to a given pattern or color
+xorg-xwininfo                      ; Command-line utility to print information about windows on an X server
+nemo                               ; Cinnamon file manager (Nautilus fork)
+nemo-preview                       ; Quick file previewer for Nemo

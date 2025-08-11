@@ -1,0 +1,20 @@
+python-boto3                       ; The AWS SDK for Python
+python-breathe                     ; An extension to reStructuredText and Sphinx to be able to read and render Doxygen xml output
+python-flask-cors                  ; A Flask extension adding a decorator for CORS support
+python-lsp-server                  ; Fork of the python-language-server project, maintained by the Spyder IDE team and the community
+python-natsort                     ; Simple yet flexible natural sorting in Python
+python-nodeenv                     ; Node.js virtual environment builder
+python-opengl                      ; The cross platform Python binding to OpenGL and related APIs
+python-pip                         ; The PyPA recommended tool for installing Python packages
+python-pynamodb                    ; A pythonic interface to Amazon's DynamoDB
+python-pynvim                      ; Python client for Neovim
+python-pytesseract                 ; Python wrapper for Google Tesseract
+python-seaborn                     ; Statistical data visualization
+python-shapely                     ; Manipulation and analysis of geometric objects in the Cartesian plane
+python-sphinx                      ; Python documentation generator
+python-sphinx_rtd_theme            ; Read the Docs theme for Sphinx
+python-tabulate                    ; Pretty-print tabular data in Python, a library and a command-line utility.
+python-tasklib                     ; Python library for interacting with taskwarrior databases
+python-toml                        ; A Python library for parsing and creating TOML
+python-virtualenv                  ; Virtual Python Environment builder
+python-yaml                        ; Python bindings for YAML, using fast libYAML library

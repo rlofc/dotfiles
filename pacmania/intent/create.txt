@@ -1,0 +1,30 @@
+tiled                              ; A general purpose tile map editor, built to be flexible and easy to use
+obs-studio                         ; Free, open source software for live streaming and recording
+davinci-resolve-studio             ; Professional A/V post-production software suite from Blackmagic Design. Studio edition, requires license key or license dongle.
+cadence                            ; JACK toolbox for audio production.
+calf                               ; LV2 plug-in suite and standalone Jack host
+gimp                               ; GNU Image Manipulation Program
+krita                              ; Edit and paint images
+mypaint                            ; Fast and easy painting application for digital painters, with brush dynamics
+airwave-git                        ; Airwave is a WINE-based VST bridge, that allows for the use of Windows 32- and 64-bit VST 2.4 audio plugins with Linux VST hosts
+jack_capture                       ; Simple command line tool to record JACK audio output to a file
+scribus                            ; Desktop publishing software
+texlive-basic                      ; TeX Live - Essential programs and files
+texlive-bibtexextra                ; TeX Live - BibTeX additional styles
+texlive-fontsextra                 ; TeX Live - Additional fonts
+texlive-formatsextra               ; TeX Live - Additional formats
+texlive-humanities                 ; TeX Live - Humanities packages
+texlive-latexextra                 ; TeX Live - LaTeX additional packages
+texlive-publishers                 ; TeX Live - Publisher styles, theses, etc.
+texlive-xetex                      ; TeX Live - XeTeX and packages
+asciidoc                           ; Text document format for short documents, articles, books and UNIX man pages
+asciidoctor                        ; An implementation of AsciiDoc in Ruby
+culmus                             ; A collection of Type1 and TrueType Hebrew fonts
+godot                              ; Advanced cross-platform 2D and 3D game engine
+guitarix                           ; A simple mono guitar amplifier and FX for JACK using Faust
+helm-synth                         ; A cross-platform, polyphonic synthesizer, available standalone and as an LV2 plugin
+inkscape                           ; Professional vector graphics editor
+love                               ; An open-source 2D game engine which uses the versatile Lua scripting language to create dynamic gaming experiences
+steinberg-vst36                    ; Steinberg's VST SDK (version 3.6)
+synthv1-standalone                 ; Old-school all-digital 4-oscillator subtractive polyphonic synthesizer with stereo fx - standalone
+gifski                             ; Make quality animated gifs

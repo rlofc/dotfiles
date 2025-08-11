@@ -1,0 +1,5 @@
+gd                                 ; needed to build st
+glibc                              ; needed to build st
+pkgconf                            ; Package compiler and linker metadata toolkit
+libxft                             ; needed to build st
+libxinerama                        ; needed to build st
