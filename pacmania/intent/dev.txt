@@ -1,48 +1,30 @@
-abseil-cpp                         ; Collection of C++ library code designed to augment the C++ standard library
-android-studio                     ; The official Android IDE (Stable branch)
-android-tools                      ; Android platform tools
-apk-tools                          ; Alpine package manager for containers
-astyle                             ; A free, fast and small automatic formatter for C, C++, C#, and Java source code.
 autoconf                           ; A GNU tool for automatically configuring source code
 automake                           ; A GNU tool for automatically creating Makefiles
-boost                              ; Free peer-reviewed portable C++ source libraries (development headers)
-bullet                             ; A 3D Collision Detection and Rigid Body Dynamics Library for games and animation
 cmake                              ; A cross-platform open-source make system
-cppreference                       ; A complete reference for the features in the C++ Standard Library. HTML book.
-cppreference-devhelp               ; Offline cppreference documentation for devhelp.
 ctags                              ; Generates an index file of language objects found in source files
 doxygen                            ; Documentation system for C++, C, Java, IDL and PHP
-eigen                              ; Lightweight C++ template library for vector and matrix math, a.k.a. linear algebra
 emacs                              ; The extensible, customizable, self-documenting real-time display editor
 emscripten                         ; Compile C and C++ into highly-optimizable JavaScript for the web
-gcc-ada                            ; Ada front-end for GCC (GNAT)
 gdb                                ; The GNU Debugger
 git                                ; the fast distributed version control system
 git-lfs                            ; Git extension for versioning large files
-go                                 ; Core compiler tools for the Go programming language
 helix                              ; A post-modern modal text editor
 just                               ; A handy way to save and run project-specific commands
 lazygit                            ; Simple terminal UI for git commands
-llvm                               ; Compiler infrastructure
 make                               ; GNU make utility to maintain groups of programs
 meld                               ; Compare files, directories and working copies
 memcached                          ; Needed for hexroll
 mercurial                          ; A scalable distributed SCM tool
 meson                              ; High productivity build system
 mold                               ; A Modern Linker
-neovide                            ; No Nonsense Neovim Client in Rust
-neovim                             ; Fork of Vim aiming to improve user experience, plugins, and GUIs
 ninja                              ; Small build system with a focus on speed
 npm                                ; JavaScript package manager
 ollama-cuda                        ; AI for everyone!
 pueue                              ; Terminal execution queue manager
-rust-analyzer                      ; Rust compiler front-end for IDEs
 rustup                             ; The Rust toolchain installer
 sccache                            ; Shared compilation cache
-scons                              ; Extensible Python-based build utility
 sloccount                          ; Tools for counting physical source lines of code
 smartcat                           ; Pipe to LLM
 the_silver_searcher                ; Code searching tool similar to Ack, but faster
 valgrind                           ; Tool to help find memory-management problems in programs
 xdialog                            ; Terminal dialog but for X11
-zed                                ; A high-performance, multiplayer code editor from the creators of Atom and Tree-sitter
