@@ -1,3 +1,11 @@
+nemo                               ; Cinnamon file manager (Nautilus fork)
+nemo-preview                       ; Quick file previewer for Nemo
+slock                              ; A simple screen locker for X
+ttc-iosevka                        ; Typeface family designed for coding, terminal use and technical documents.
+ttc-iosevka-aile                   ; Typeface family designed for coding, terminal use and technical documents. (Aile variant)
+ttc-iosevka-etoile                 ; Typeface family designed for coding, terminal use and technical documents. (Etoile variant)
+ttc-iosevka-slab                   ; Typeface family designed for coding, terminal use and technical documents. (Slab variant)
+ttf-jetbrains-mono-nerd            ; Patched font JetBrains Mono from nerd fonts library
 xorg-fonts-alias                   ; X.org font alias files
 xorg-server-xephyr                 ; A nested X server that runs as an X application
 xorg-xev                           ; Print contents of X events
@@ -8,5 +16,3 @@ xorg-xprop                         ; Property displayer for X
 xorg-xrandr                        ; Primitive command line interface to RandR extension
 xorg-xsetroot                      ; Classic X utility to set your root window background to a given pattern or color
 xorg-xwininfo                      ; Command-line utility to print information about windows on an X server
-nemo                               ; Cinnamon file manager (Nautilus fork)
-nemo-preview                       ; Quick file previewer for Nemo
