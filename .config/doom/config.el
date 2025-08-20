@@ -443,42 +443,42 @@
   (interactive (list (read-string "Rewrite instruction: " nil gptel-rewrite-with-instruction--history)))
   (when (string= prompt "") (user-error "A prompt is required."))
   (setq gptel--rewrite-message prompt)
-  (gptel-rewrite))
+  (gptel--suffix-rewrite))
 
 (defun gptel-rewrite-explain ()
   (interactive)
   (setq gptel--rewrite-message "Explain this code with inline comments without changing any actual line of code:")
-  (gptel-rewrite))
+  (gptel--suffix-rewrite))
 
 (defun gptel-rewrite-evolve ()
   (interactive)
   (setq gptel--rewrite-message "Suggest an alternative method to implement the following code while retaining its exact functionality:")
-  (gptel-rewrite))
+  (gptel--suffix-rewrite))
 
 (defun gptel-rewrite-document ()
   (interactive)
   (setq gptel--rewrite-message "Provide readable and concise code documentation above the following code. Correctly document any parameters or other language constructs according to the industry standard:")
-  (gptel-rewrite))
+  (gptel--suffix-rewrite))
 
 (defun gptel-rewrite-refactor ()
   (interactive)
   (setq gptel--rewrite-message "Refactor the following code, prefering readability and then performance:")
-  (gptel-rewrite))
+  (gptel--suffix-rewrite))
 
 (defun gptel-rewrite-optimize ()
   (interactive)
   (setq gptel--rewrite-message "Optimize the following code making it run as fast as possible:")
-  (gptel-rewrite))
+  (gptel--suffix-rewrite))
 
 (defun gptel-rewrite-implement ()
   (interactive)
   (setq gptel--rewrite-message "Implement the provided code specification in the most efficient and readable way possible:")
-  (gptel-rewrite))
+  (gptel--suffix-rewrite))
 
 (defun gptel-rewrite-specify ()
   (interactive)
   (setq gptel--rewrite-message "Using the following high-level software requirement, create a detailed specification or design using state-of-the-art design patterns:")
-  (gptel-rewrite))
+  (gptel--suffix-rewrite))
 
 (map! :leader
         :prefix ("k" . "AI agents")
