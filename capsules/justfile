@@ -1,0 +1,4 @@
+./spin.sh debian-base creative -v /files/volumes:/files/volumes -v /files/projects:/files/projects
+./spin.sh alpine:latest qbt -v /mnt/zilla/qbt:/mnt/zilla/qbt
+./spin.sh archlinux-base firefox -v /dev/hidraw4:/dev/hidraw4
+./spin.sh debian-base development -e GPTEL_API_KEY="$(pass openai/rlofc)" -v /files/projects/:/files/projects/
