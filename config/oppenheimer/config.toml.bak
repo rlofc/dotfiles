@@ -1,0 +1,17 @@
+[Board]
+dim_tailing_items = true
+
+
+[Board.Styles]
+
+# item.fg = "#a1a1a1"
+# item.bg = "#0000ff"
+# tag.fg = "#00ff00"
+# tag.fg = "yellow"
+# tag_hashsign.fg = "darkgray"
+# header.fg = "#a3a3ff"
+# active_header.fg = "#000000"
+# active_header.bg = "#a3a3ff"
+# selected.bg = "#888888"
+# fringe_off.fg = "darkgray"
+# fringe_on.fg = "lightblue"

@@ -1,0 +1,33 @@
+[Board]
+
+[Board.Styles.header]
+fg = "white"
+bg = ""
+
+[Board.Styles.active_header]
+fg = "white"
+bg = ""
+
+[Board.Styles.item]
+fg = ""
+bg = ""
+
+[Board.Styles.tag]
+fg = "yellow"
+bg = ""
+
+[Board.Styles.tag_hashsign]
+fg = "darkgray"
+bg = ""
+
+[Board.Styles.fringe_on]
+fg = "lightblue"
+bg = ""
+
+[Board.Styles.fringe_off]
+fg = "239"
+bg = ""
+
+[Board.Styles.selected]
+fg = ""
+bg = "235"

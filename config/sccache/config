@@ -1,0 +1,4 @@
+[cache.disk]
+dir = "/data/sccache/"
+size = 42949672960
+
