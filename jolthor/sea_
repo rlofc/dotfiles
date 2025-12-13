@@ -1,0 +1,15 @@
+#!/bin/bash
+export JOLTHOR_BIN="$(dirname "$(realpath "$0")")"
+
+cd ~/jolts/
+result=$(ag  -G .md$ --noheading . | \
+  fzf --ansi --delimiter=: \
+  --preview 'bat --wrap=auto --style=plain --terminal-width=78 --color always {1} -H {2}' \
+  --header 'ENTER-open    F1-copy   F9-delete   F11-HMM   F12-Oppenheimer' \
+  --header-first \
+  --preview-window 'top,70%' \
+  --bind 'f9:execute(mv {1} {1}.trash)+change-header(deleted)+reload(ag -G .md$ --noheading .)' \
+  --bind 'f12:execute(st -i -g =200x30+650+400 -e ~/.cargo/bin/oppenheimer {1})+reload(ag -G .md$ --noheading .)' \
+  --bind 'f11:execute(st -i -g =200x30+650+400 -e $JOLTHOR_BIN/h-m-m/h-m-m {1})+reload(ag -G .md$ --noheading .)' \
+  --bind 'f2:execute(ghostwriter {1})+reload(ag -G .md$ --noheading .)' \
+  --bind 'Enter:execute(micro {1} +{2})+reload(ag -G .md$ --noheading .)')

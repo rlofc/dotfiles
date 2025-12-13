@@ -1,0 +1,14 @@
+#!/bin/bash
+cd ~/jolts/
+count=0
+for f in $(ls -1 *.md | tac)
+do
+  (( count ++ ))
+  echo $count,$(echo $f | awk -F '-' '{print $1","$2","$3}'),\"$(head -n 1 $f)\",1,once,normal
+done > ~/.config/calcure/events.csv
+count=0
+for f in $(ls -1 *.md | tac)
+do
+  (( count ++ ))
+  echo $(echo $f | awk -F '-' '{print $2"/"$3"/"$1}') [1] $(head -n 1 $f)
+done > ~/.local/share/calcurse/apts

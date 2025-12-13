@@ -1,0 +1,9 @@
+#!/bin/bash
+export JOLTHOR_BIN="$(dirname "$(realpath "$0")")"
+# Foot: foot -W 80x20 -a foot2 --font='Iosevka Term:size=14' ~/bin/sea_
+rotated=$(xrandr | grep "1200 x 1920")
+if [ -z "$rotated" ]; then
+  st -i -g =80x20+1050+400 -e $JOLTHOR_BIN/sea_
+else
+  st -i -g =80x20+300+500 -e $JOLTHOR_BIN/sea_
+fi

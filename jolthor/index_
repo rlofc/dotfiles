@@ -1,0 +1,10 @@
+#!/bin/bash
+
+cd ~/jolts/
+result=$(for f in $(ls -1 *.md | tac); do echo $f $(head -n 1 $f); done | fzf --preview 'bat --style=numbers --color=always --line-range :500 {1}')
+
+if [ ! -z "$result" ]; then
+  filename=$(echo $result | cut -d'#' -f 1)
+  micro $filename
+fi
+

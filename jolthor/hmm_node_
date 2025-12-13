@@ -1,0 +1,4 @@
+#!/bin/bash
+topic=$(echo $1 | sed 's/# \(.*\)\[-=\].*/\1/' | awk '{$1=$1};1')
+mkdir -p ~/jolts/hmm/"$topic"
+micro ~/jolts/hmm/"$topic"/"$2".md
