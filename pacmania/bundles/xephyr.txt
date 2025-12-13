@@ -1,0 +1,9 @@
+xorg-server-xephyr
+libxshmfence
+glu
+libgl
+xorg-startx
+xorg-init
+ttf-jetbrains-mono-nerd
+ttf-iosevka-nerd
+xorg-xinit

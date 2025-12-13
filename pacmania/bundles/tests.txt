@@ -1,0 +1,16 @@
+cspot                              ; spotify
+cava                               ; audio visualizer
+yazi                               ; File manager
+eww                                ; Wayland bar
+niri                               ; Wayland WM
+fuzzel                             ; Wayland launcher
+duf                                ; Disk usage dashboard
+x11-ssh-askpass                    ; Ask for password from anywhere
+jujutsu                            ; Next vcs?
+lazyjj                             ; Next lazygit?
+rust-kanban                        ; A kanban board for the terminal
+skim                               ; Fuzzy Finder in Rust!
+sqlitebrowser                      ; A light GUI editor for SQLite databases, built on top of Qt
+subdl                              ; A command-line tool for downloading subtitles from opensubtitles.org
+yt-dlp                             ; A youtube-dl fork with additional features and fixes
+ytfzf                              ; A POSIX script to find and watch youtube videos from the terminal

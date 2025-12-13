@@ -1,0 +1,6 @@
+base-devel
+gd
+harfbuzz
+xorg-xsetroot
+alsa-utils
+bc

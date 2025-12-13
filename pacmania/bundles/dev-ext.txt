@@ -1,0 +1,21 @@
+abseil-cpp                         ; Collection of C++ library code designed to augment the C++ standard library
+android-studio                     ; The official Android IDE (Stable branch)
+android-tools                      ; Android platform tools
+apk-tools                          ; Alpine package manager for containers
+astyle                             ; A free, fast and small automatic formatter for C, C++, C#, and Java source code.
+boost                              ; Free peer-reviewed portable C++ source libraries (development headers)
+bullet                             ; A 3D Collision Detection and Rigid Body Dynamics Library for games and animation
+cppreference                       ; A complete reference for the features in the C++ Standard Library. HTML book.
+cppreference-devhelp               ; Offline cppreference documentation for devhelp.
+eigen                              ; Lightweight C++ template library for vector and matrix math, a.k.a. linear algebra
+gcc-ada                            ; Ada front-end for GCC (GNAT)
+go                                 ; Core compiler tools for the Go programming language
+llvm                               ; Compiler infrastructure
+neovide                            ; No Nonsense Neovim Client in Rust
+neovim                             ; Fork of Vim aiming to improve user experience, plugins, and GUIs
+rust-analyzer                      ; Rust compiler front-end for IDEs
+scons                              ; Extensible Python-based build utility
+zed                                ; A high-performance, multiplayer code editor from the creators of Atom and Tree-sitter
+emscripten                         ; Compile C and C++ into highly-optimizable JavaScript for the web
+ollama-cuda                        ; AI for everyone!
+npm                                ; JavaScript package manager

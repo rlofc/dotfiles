@@ -1,0 +1,2 @@
+wlr-randr                          ; Utility to manage outputs of a Wayland compositor
+wofi                               ; launcher for wlroots-based wayland compositors

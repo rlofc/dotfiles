@@ -4,7 +4,7 @@ rm -f /tmp/intent.txt
 cat ./intent/*.txt | cut -d' ' -f1 >> /tmp/intent.txt
 to_remove=$(comm -23 <(sort /tmp/installed.txt) <(sort /tmp/intent.txt))
 if [ ! -z "$to_remove" ]; then
-	if [[ $(echo "$to_remove" | wc -l) -ge 40 ]]; then
+	if [[ $(echo "$to_remove" | wc -l) -ge 100 ]]; then
 		echo "SAFETY ERROR: removal list too big!"
 		exit 1
 	else

@@ -1,0 +1,22 @@
+acpi                               ; Client for battery, power, and thermal readings
+aerc                               ; Email Client for your Terminal
+asciinema                          ; Record and share terminal sessions
+feh                                ; Fast and light imlib2-based image viewer
+flameshot                          ; Powerful yet simple to use screenshot software
+gparted                            ; A Partition Magic clone, frontend to GNU Parted
+grub                               ; GNU GRand Unified Bootloader (2)
+iptables                           ; Linux kernel packet control tool (using legacy interface)
+jq                                 ; Command-line JSON processor
+lnav                               ; A curses-based tool for viewing and analyzing log files
+mc                                 ; A file manager that emulates Norton Commander
+micro                              ; Modern and intuitive terminal-based text editor
+mpv                                ; a free, open source, and cross-platform media player
+nmap                               ; Utility for network discovery and security auditing
+python-pipx                        ; pip but with automated venvs
+tree                               ; A directory listing program displaying a depth indented list of files
+ublock-origin                      ; Efficient blocker add-on for various browsers. Fast, potent, and lean (unpacked webextension)
+unclutter                          ; Hide the mouse cursor when capturing X11
+w3m                                ; Text-based Web browser as well as pager
+xfburn                             ; Archival grade backups? we hope so.
+xpdf                               ; Now that llpp is now longer easily obtainable
+yazi                               ; Blazing fast terminal file manager written in Rust, based on async I/O
