@@ -6,6 +6,7 @@ cp boot/$2.sh /files/volumes/$2/.bootstrap/
 rm -f /files/volumes/$2/.bootstrap/DONE
 podman run -it --gpus all -e DISPLAY=:0 --net=host \
     --userns=keep-id --user=root \
+    --pids-limit=-1 \
     -v /dev/snd:/dev/snd:rw \
     -v /dev/shm:/dev/shm:rw \
     -v /run/user/1000/pulse:/run/user/host/pulse:rw \
