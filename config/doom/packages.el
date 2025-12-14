@@ -47,6 +47,7 @@
 ;; (unpin! pinned-package another-pinned-package)
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;; (unpin! t)
+(package! exec-path-from-shell)
 (package! catppuccin-theme)
 (package! avy)
 (package! dimmer)
@@ -57,8 +58,5 @@
 (package! blamer :recipe (:host github :repo "artawower/blamer.el"))
 (package! svg-tag-mode)
 (package! hotfuzz)
-(package! multiple-cursors)
 (package! expand-region)
-
-(package! orderless :disable t)
-(package! ccls :disable t)
+(package! typst-ts-mode :recipe (:host codeberg :repo "meow_king/typst-ts-mode"))

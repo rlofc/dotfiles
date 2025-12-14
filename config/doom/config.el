@@ -37,6 +37,7 @@
 ;; ----------------------------------------------------------------------------
 ;; ACTIVATE DIMMER
 ;; (for some reason, this has to be done before the theme)
+(setq dimmer-watch-frame-focus-events nil)
 (use-package dimmer
   :config
   (dimmer-mode t)
@@ -247,7 +248,7 @@
 
 ;(map! :vn "SPC -" #'comment-line)
 
-(map! :vn "/" #'+default/search-buffer)
+(map! :vn "C-/" #'+default/search-buffer)
 (evil-define-key 'normal 'global (kbd "SPC") (make-sparse-keymap))
 (evil-define-key 'normal 'global (kbd "SPC s a") #'consult-lsp-file-symbols)
 (evil-define-key 'normal 'global (kbd "SPC -") #'comment-line)
@@ -274,9 +275,43 @@
 (global-set-key (kbd "C-k") 'evil-window-up)
 (global-set-key (kbd "C-j") 'evil-window-down)
 
+(global-set-key (kbd "<f5>") 'evil-make)
+
+
+;;------------------------------------------------------------------------------------------------
+;; JUST RUN
+;; --------
+;; This will execute 'just run' in the project and stream the output to a ansi-colored
+;; buffer.
+(defun show-temp-buffer-with-stdout-stderr ()
+  (interactive)
+  (let ((buffer (get-buffer-create "*Just Output*")))
+    (with-current-buffer buffer
+      (comint-mode)
+      (evil-normal-state)
+      (read-only-mode -1)
+      (erase-buffer))
+    (display-buffer buffer)
+    (with-current-buffer buffer
+        (evil-define-key 'insert 'local (kbd "q") #'quit-window)
+        (evil-define-key 'normal 'local (kbd "q") #'quit-window))
+    (let ((process (start-process "just-run" buffer "just" "run")))
+    (set-process-filter process 'ansi-color-filter))
+    (accept-process-output)))
+(defun ansi-color-filter (process output)
+  (let ((colored-output (ansi-color-apply output)))
+    (with-current-buffer (process-buffer process)
+      (insert colored-output))))
+(global-set-key (kbd "<f6>") 'show-temp-buffer-with-stdout-stderr)
+;;
+;;------------------------------------------------------------------------------------------------
+
 ;;(global-set-key (kbd "C-<f11>") "!~/bin/scwe.sh")
 
-
+(define-minor-mode ansi-color-mode
+  "..."
+  nil nil nil
+  (ansi-color-apply-on-region 1 (buffer-size)))
 
 (evil-define-command evil-shell-command-on-region (beg end command)
  (interactive (let (cmd)
@@ -329,7 +364,7 @@
 ;; AVY
 (use-package avy
   :config
-  (setq avy-timeout-seconds 0.2)
+  (setq avy-timeout-seconds 0.4)
 )
 (map! :after avy :vn "SPC j" #'avy-goto-char-timer)
 ;;
@@ -505,3 +540,35 @@
               (flycheck-mode 1))))
 ;
 ;------------------------------------------------------------------------------------------------
+
+;; (use-package rust-mode
+;;   :init
+;;   (setq rust-mode-treesitter-derive t))
+
+;; https://emacs.stackexchange.com/questions/59621/how-to-us-a-shortcut-to-add-semicolon-to-end-of-current-line
+(global-set-key (kbd "C-<end>")
+  (lambda ()
+    (interactive)
+    ;; Keep cursor motion within this block (don't move the users cursor).
+    (save-excursion
+      ;; Typically mapped to the "End" key.
+      (call-interactively 'move-end-of-line)
+      (insert ";"))))
+
+(setq git-commit-summary-max-length 80)
+
+;; -----------------------------------------------------------------------------------------------------------------------------
+;; Typst setup
+;; -----------------------------------------------------------------------------------------------------------------------------
+(setq typst-ts-compile-executable-location "~/.cargo/bin/typst")
+(use-package typst-ts-mode
+  :custom
+  (typst-ts-lsp-download-path "/usr/bin/tinymist"))
+(with-eval-after-load 'lsp-mode
+(add-to-list 'lsp-language-id-configuration '(typst-ts-mode . "Typst"))
+(lsp-register-client (make-lsp-client
+                      :new-connection (lsp-stdio-connection "tinymist")
+                      :activation-fn (lsp-activate-on "Typst")
+                      :server-id 'tinymist)))
+
+(exec-path-from-shell-initialize)
