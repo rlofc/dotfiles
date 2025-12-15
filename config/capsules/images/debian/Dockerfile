@@ -10,7 +10,3 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     bash
 
 RUN apt-get install --reinstall -y ca-certificates
-
-ENV HOME="/files/home/$CAPSULE_USERNAME"
-
-ENTRYPOINT ["/bin/sh","-c","/files/.bootstrap/$BOOTSTRAP && sudo -u $CAPSULE_USERNAME /bin/bash"]
