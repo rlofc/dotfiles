@@ -26,3 +26,4 @@ unrar                              ; The RAR uncompression program
 unzip                              ; For extracting and viewing files in .zip archives
 vivid                              ; LS_COLORS manager with multiple themes
 vifm                               ; The chosen file manager
+pcre2                              ; Needed for bash-it
